@@ -1,12 +1,15 @@
 package com.mypath.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.mypath.flixster.adapters.MovieAdapter;
 import com.mypath.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -28,17 +31,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView rvmovie = findViewById(R.id.rvmovie);
+
         movieList = new ArrayList<>();
+
+        MovieAdapter adapter = new MovieAdapter(movieList);
+
+        rvmovie.setAdapter(adapter);
+        rvmovie.setLayoutManager(new LinearLayoutManager(this));
 
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(NOW_PLAYING, new JsonHttpResponseHandler() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     movieList.addAll(Movie.fromJsonArray(results));
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
