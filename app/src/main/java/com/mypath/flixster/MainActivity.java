@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3C2C3E")));
         findViewById(R.id.relativelayout).setBackgroundColor(Color.parseColor("#A5BECC"));
-
+        
         RecyclerView rvmovie = findViewById(R.id.rvmovie);
 
         movieList = new ArrayList<>();
