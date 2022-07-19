@@ -11,9 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.mypath.flixster.R;
 import com.mypath.flixster.models.Movie;
 
+import com.bumptech.glide.request.target.Target;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
@@ -38,13 +41,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.tvOverview.setText(movie.getOverview());
 
         int orientation =holder.view.getResources().getConfiguration().orientation;
+
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             Glide.with(holder.view.getContext())
                     .load(movie.getPosterPath())
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .placeholder(R.drawable.ic_baseline_local_movies_24)
+                    .transition(DrawableTransitionOptions.withCrossFade(4000))
+                    .transform(new RoundedCorners(20))
                     .into(holder.ivMovie);
         } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Glide.with(holder.view.getContext())
                     .load(movie.getBackdropPath())
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .placeholder(R.drawable.ic_baseline_local_movies_24)
+                    .transition(DrawableTransitionOptions.withCrossFade(4000))
+                    .transform(new RoundedCorners(20))
                     .into(holder.ivMovie);
         }
     }
