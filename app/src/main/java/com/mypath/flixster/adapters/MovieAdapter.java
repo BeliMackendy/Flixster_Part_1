@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +40,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         holder.tvTitle.setText(movie.getTitle());
         holder.tvOverview.setText(movie.getOverview());
+
+        holder.tvTitle.setTypeface(ResourcesCompat.getFont(holder.view.getContext(),R.font.berkshire_swash));
+        holder.tvOverview.setTypeface(ResourcesCompat.getFont(holder.view.getContext(),R.font.aclonica));
 
         int orientation =holder.view.getResources().getConfiguration().orientation;
 
